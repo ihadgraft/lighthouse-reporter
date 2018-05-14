@@ -57,7 +57,7 @@ else:
     proc = Popen(popen_args, stdout=PIPE, stderr=PIPE)
     out, err = proc.communicate()
     if proc.returncode == 0:
-        raw = out.decode()
+        raw = out.decode('utf-8')
         with open(cache_path, 'w') as stream:
             stream.write(raw)
     else:
