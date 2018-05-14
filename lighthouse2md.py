@@ -61,7 +61,7 @@ else:
         with open(cache_path, 'w') as stream:
             stream.write(raw)
     else:
-        raise LighthouseException(err.decode())
+        raise LighthouseException(err.decode('utf-8'))
 
 
 data = json.JSONDecoder().decode(raw)
