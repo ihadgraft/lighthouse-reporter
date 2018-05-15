@@ -3,6 +3,7 @@ import argparse
 import jinja2
 import os
 import json
+import sys
 
 
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
@@ -21,14 +22,17 @@ examples:
 ''' % {'lighthouse': os.path.basename(__file__)}
 
 parser = argparse.ArgumentParser(epilog=example_text, formatter_class=argparse.RawTextHelpFormatter)
-parser.add_argument("-i", "--input-file", help="Provide athe path to an input file")
+parser.add_argument("-i", "--input-file", help="Provide athe path to an input file", default=sys.stdin)
 parser.add_argument("-o", "--output-file", help='Provide a filepath where the markdown result gets written')
 parser.add_argument("-e", action='store_true', default=False,
                     help='Echo the output to stdout, even when using the -o option')
 args = parser.parse_args()
 
-with open(args.input_file) as stream:
-    data = json.JSONDecoder().decode(stream.read())
+if type(args.input_file) is str:
+    with open(args.input_file) as stream:
+        data = json.JSONDecoder().decode(stream.read())
+else:
+    data = json.JSONDecoder().decode(args.input_file.read())
 
 for cat in data['reportCategories']:
     for audit in cat['audits']:
