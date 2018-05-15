@@ -5,6 +5,6 @@
 {% for audit in cat.audits %}
 ### {{ audit.result.description }}
 
-{% include "audit_result.md" %}
+{% include [audit.audit_template, "audit_result.md"] %}
 {% endfor %}
 {%- endfor -%}

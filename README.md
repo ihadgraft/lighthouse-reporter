@@ -19,3 +19,9 @@ file. This directory will need to be created.
 
 For example, create `./user/templates/index.md` to override the index
 template.
+
+The generic audit template is audit_result.md. However, templates for
+specific audits can be easily overridden using the audit id. For
+example, create ./user/templates/structured-data.md to override the
+structured-data audit under SEO/Structured Data.
+

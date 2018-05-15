@@ -66,6 +66,11 @@ else:
 
 data = json.JSONDecoder().decode(raw)
 
+for cat in data['reportCategories']:
+    for audit in cat['audits']:
+        audit['full_audit'] = data['audits'][audit['id']]
+        audit['audit_template'] = '%s.md' % audit['id']
+
 loader = jinja2.FileSystemLoader([
     os.path.join(SCRIPT_PATH, 'user', 'templates'),
     os.path.join(SCRIPT_PATH, 'templates')
