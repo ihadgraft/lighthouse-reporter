@@ -1,5 +1,7 @@
 # Lighthouse to Markdown
 
+Note: After v0.0.2, lighthouse3 is required. Use `npm install lighthouse@next` until a stable release is available.
+
 This script runs [lighthouse](https://developers.google.com/web/tools/lighthouse/) and provides the result to a primitive markdown templating system.
 
 ## Installation
