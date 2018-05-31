@@ -45,7 +45,16 @@ def read_input(input_file):
         with open(input_file) as stream:
             return json.JSONDecoder().decode(stream.read())
     else:
-        return json.JSONDecoder().decode(args.input_file.read())
+        return json.JSONDecoder().decode(input_file.read())
+
+
+def write_output(output_file, rendered, force_stdout=False):
+    if output_file:
+        with open(output_file, 'w') as stream:
+            stream.write(rendered.encode('utf-8'))
+
+    if force_stdout:
+        print(rendered)
 
 
 def main():
@@ -63,14 +72,7 @@ def main():
         'data': preprocess_data(read_input(args.input_file))
     })
 
-    if args.output_file:
-        with open(args.output_file, 'w') as stream:
-            stream.write(rendered.encode('utf-8'))
-
-        if args.e:
-            print(rendered)
-    else:
-        print(rendered)
+    write_output(args.output_file, rendered, force_stdout=args.e or not args.output_file)
 
 
 if __name__ == '__main__':
