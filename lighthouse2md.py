@@ -13,7 +13,11 @@ def get_args():
     example_text = '''
     examples:
     
-    %(lighthouse)s -i /tmp/google.com.json -o /tmp/google.com.md -e
+    python %(lighthouse)s -i /tmp/google.com.json -o /tmp/google.com.md -e
+    
+    python %(lighthouse)s < lighthouse-report.json
+    
+    lighthouse  https://cats.com --output=json | python lighthouse2md.py -o out.md
        
     ''' % {'lighthouse': os.path.basename(__file__)}
 
