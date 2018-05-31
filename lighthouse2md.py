@@ -13,12 +13,6 @@ example_text = '''
 examples:
 
 %(lighthouse)s -i /tmp/google.com.json -o /tmp/google.com.md -e
-
-%(lighthouse)s -u https://google.com -l /home/foo/.local/bin/lighthouse
-   Run lighthouse from /home/foo/.local/bin
-   
-%(lighthouse)s -u https://google.com -- --config-path=/path/to/config.js
-   Use a custom config file, and/or pass any other supported options to lighthouse
    
 ''' % {'lighthouse': os.path.basename(__file__)}
 
