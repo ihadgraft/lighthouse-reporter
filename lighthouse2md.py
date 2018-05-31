@@ -6,6 +6,7 @@ import json
 import sys
 
 
+
 SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
 
 example_text = '''
@@ -34,10 +35,17 @@ if type(args.input_file) is str:
 else:
     data = json.JSONDecoder().decode(args.input_file.read())
 
-for cat in data['reportCategories']:
-    for audit in cat['audits']:
-        audit['full_audit'] = data['audits'][audit['id']]
-        audit['audit_template'] = '%s.md' % audit['id']
+for cat in data['categories']:
+    data['categories'][cat]['audits'] = dict()
+    for audit_ref in data['categories'][cat]['auditRefs']:
+        audit = data['audits'][audit_ref['id']]
+        audit['audit_template'] = '%s.md' % audit_ref['id']
+        if 'displayValue' in audit and type(audit['displayValue']) is list:
+            try:
+                audit['displayValue'] = audit['displayValue'][0] % tuple(audit['displayValue'][1:])
+            except TypeError:
+                print(audit)
+        data['categories'][cat]['audits'][audit_ref['id']] = audit
 
 loader = jinja2.FileSystemLoader([
     os.path.join(SCRIPT_PATH, 'user', 'templates'),
@@ -52,7 +60,7 @@ rendered = template.render({'data': data})
 
 if args.output_file:
     with open(args.output_file, 'w') as stream:
-        stream.write(rendered)
+        stream.write(rendered.encode('utf-8'))
 
     if args.e:
         print(rendered)

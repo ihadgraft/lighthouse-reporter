@@ -1,6 +1,6 @@
-{{ audit.result.helpText }}
+{{ audit.helpText }}
 
-Score: {{ audit.result.score }}
-{%- if audit.result.displayValue %}
-Display value: {{ audit.result.displayValue }}
+Score: {{ audit.score }}
+{%- if audit.score %}
+Display value: {{ audit.displayValue|trim }}
 {% endif -%}
