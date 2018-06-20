@@ -2,6 +2,7 @@ from __future__ import print_function
 import argparse
 import jinja2
 import os
+import io
 import json
 import sys
 
@@ -54,7 +55,7 @@ def read_input(input_file):
 
 def write_output(output_file, rendered, force_stdout=False):
     if output_file:
-        with open(output_file, 'w') as stream:
+        with io.open(output_file, 'w', encoding='utf-8') as stream:
             stream.write(rendered.encode('utf-8'))
 
     if force_stdout:
