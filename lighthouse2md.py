@@ -47,7 +47,7 @@ def preprocess_data(data):
 
 def read_input(input_file):
     if type(input_file) is str:
-        with open(input_file) as stream:
+        with io.open(input_file, encoding='utf-8') as stream:
             return json.JSONDecoder().decode(stream.read())
     else:
         return json.JSONDecoder().decode(input_file.read())
@@ -56,7 +56,7 @@ def read_input(input_file):
 def write_output(output_file, rendered, force_stdout=False):
     if output_file:
         with io.open(output_file, 'w', encoding='utf-8') as stream:
-            stream.write(rendered.encode('utf-8'))
+            stream.write(rendered)
 
     if force_stdout:
         print(rendered)
